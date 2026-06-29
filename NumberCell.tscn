@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://jad5s5q1xmrg"]
+
+[ext_resource type="FontFile" uid="uid://dsxygfqe2hubb" path="res://calibri-bold.ttf" id="1_ebjf3"]
+[ext_resource type="Script" uid="uid://bmfre57dcq40e" path="res://NumberCell.cs" id="2_ebjf3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bih0"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6fny"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="NumberCell0" type="Button" unique_id=193999838]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 8.0
+offset_bottom = 8.0
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_ebjf3")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_5bih0")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_y6fny")
+disabled = true
+text = "1"
+script = ExtResource("2_ebjf3")
+MaxFontSize = 64

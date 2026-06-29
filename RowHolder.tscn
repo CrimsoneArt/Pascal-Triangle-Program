@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bmy6sxb2vorot"]
+
+[ext_resource type="Script" uid="uid://dq5mv4jhdnsqx" path="res://RowHolder.cs" id="1_33cv2"]
+
+[node name="RowHolder" type="VBoxContainer" unique_id=2142837566]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_33cv2")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bwr7cy3vr6fbg"]
+
+[ext_resource type="Script" uid="uid://ks6qxswityrv" path="res://NumberHolder.cs" id="1_fawc4"]
+
+[node name="NumberHolder0" type="HBoxContainer" unique_id=2035578084]
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+script = ExtResource("1_fawc4")
