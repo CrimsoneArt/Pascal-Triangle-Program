@@ -5,4 +5,5 @@
 [node name="RowHolder" type="VBoxContainer" unique_id=2142837566]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 script = ExtResource("1_33cv2")

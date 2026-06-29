@@ -5,5 +5,6 @@
 [node name="NumberHolder0" type="HBoxContainer" unique_id=2035578084]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 alignment = 1
 script = ExtResource("1_fawc4")

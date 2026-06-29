@@ -2,36 +2,60 @@ using Godot;
 
 public partial class Camera : Camera2D
 {
-	private float _speed = 400.0f;
-	private float _zoomSpeed = 0.5f;
+	[Export] public float ZoomSpeed { get; set; } = 0.1f;
+	[Export] public Vector2 MinZoom { get; set; } = new Vector2(0.02f, 0.02f);
+	[Export] public Vector2 MaxZoom { get; set; } = new Vector2(100.0f, 100.0f);
+
+	private bool _isDragging = false;
+	private Vector2 _lastMousePosition;
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseButton)
+		{
+			if (mouseButton.ButtonIndex == MouseButton.Left)
+			{
+				_isDragging = mouseButton.Pressed;
+				if (_isDragging)
+				{
+					_lastMousePosition = GetLocalMousePosition();
+				}
+			}
+			else if (mouseButton.Pressed)
+			{
+				if (mouseButton.ButtonIndex == MouseButton.WheelUp)
+				{
+					ZoomToMouse(1.0f + ZoomSpeed);
+				}
+				else if (mouseButton.ButtonIndex == MouseButton.WheelDown)
+				{
+					ZoomToMouse(1.0f - ZoomSpeed);
+				}
+			}
+		}
+	}
 
 	public override void _Process(double delta)
 	{
-		float fDelta = (float)delta;
+		if (_isDragging)
+		{
+			Vector2 currentMousePosition = GetLocalMousePosition();
+			Position -= (currentMousePosition - _lastMousePosition);
+			_lastMousePosition = GetLocalMousePosition();
+		}
+	}
 
-		if (Input.IsActionPressed("ui_up"))
-		{
-			Position = new Vector2(Position.X, Position.Y - fDelta * _speed * (1.0f / Zoom.X));
-		}
-		if (Input.IsActionPressed("ui_down"))
-		{
-			Position = new Vector2(Position.X, Position.Y + fDelta * _speed * (1.0f / Zoom.X));
-		}
-		if (Input.IsActionPressed("ui_left"))
-		{
-			Position = new Vector2(Position.X - fDelta * _speed * (1.0f / Zoom.X), Position.Y);
-		}
-		if (Input.IsActionPressed("ui_right"))
-		{
-			Position = new Vector2(Position.X + fDelta * _speed * (1.0f / Zoom.X), Position.Y);
-		}
-		if (Input.IsActionPressed("zoom_in"))
-		{
-			Zoom = new Vector2(Zoom.X + _zoomSpeed * fDelta, Zoom.Y + _zoomSpeed * fDelta);
-		}
-		if (Input.IsActionPressed("zoom_out"))
-		{
-			Zoom = new Vector2(Zoom.X - _zoomSpeed * fDelta, Zoom.Y - _zoomSpeed * fDelta);
-		}
+	private void ZoomToMouse(float factor)
+	{
+		Vector2 oldZoom = Zoom;
+		Vector2 newZoom = (oldZoom * factor).Clamp(MinZoom, MaxZoom);
+
+		if (oldZoom == newZoom) return;
+
+		Vector2 mousePos = GetGlobalMousePosition();
+		
+		Zoom = newZoom;
+		
+		Position += mousePos - GetGlobalMousePosition();
 	}
 }
